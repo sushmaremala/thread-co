@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THREAD & CO. | Official 10-Item Drop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; font-family: 'Outfit', sans-serif; margin: 0; padding: 0; }
+        body { background-color: #0b0b0d; color: #f4f4f5; min-height: 100vh; }
+        
+        /* Top Flash Ticker (YELLOW) */
+        .flash-ticker { background: #eab308; color: #000; font-weight: 800; text-align: center; padding: 10px; font-size: 0.95rem; letter-spacing: 1px; display: flex; justify-content: center; align-items: center; gap: 15px; }
+        .timer-badge { background: #000; color: #eab308; padding: 4px 10px; border-radius: 6px; font-family: monospace; font-size: 1rem; }
+
+        /* Navigation */
+        nav { background: rgba(18, 18, 22, 0.95); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid #27272a; padding: 15px 40px; display: flex; align-items: center; justify-content: space-between; }
+        .logo { font-size: 1.8rem; font-weight: 800; letter-spacing: 3px; color: #fff; text-decoration: none; }
+        .nav-links { display: flex; gap: 25px; list-style: none; }
+        .nav-links a { color: #a1a1aa; text-decoration: none; font-weight: 500; font-size: 0.95rem; cursor: pointer; }
+        .nav-links a:hover, .nav-links a.active { color: #ef4444; }
+        .nav-actions { display: flex; align-items: center; gap: 20px; }
+        .search-box { background: #18181c; border: 1px solid #3f3f46; border-radius: 20px; padding: 8px 16px; color: #fff; outline: none; width: 180px; transition: 0.3s; }
+        .search-box:focus { width: 240px; border-color: #ef4444; }
+        
+        .btn-icon { background: #18181c; border: 1px solid #3f3f46; color: #fff; padding: 8px 16px; border-radius: 20px; cursor: pointer; font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; }
+        .cart-badge { background: #ef4444; color: #fff; border-radius: 50%; padding: 2px 7px; font-size: 0.75rem; font-weight: 700; }
+        .btn-login { background: #fff; color: #000; border: none; padding: 8px 20px; border-radius: 20px; font-weight: 700; cursor: pointer; }
+
+        /* Hero */
+        .hero { text-align: center; padding: 50px 20px 30px; background: radial-gradient(circle at top, #450a0a 0%, #0b0b0d 75%); }
+        .hero h1 { font-size: 3rem; font-weight: 800; letter-spacing: 2px; margin-bottom: 10px; color: #fca5a5; }
+        .hero p { color: #a1a1aa; max-width: 600px; margin: 0 auto 20px; font-size: 1.05rem; }
+        .btn-init { background: #ef4444; color: #fff; border: none; padding: 10px 24px; font-weight: 800; border-radius: 30px; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4); }
+        .btn-init:hover { background: #dc2626; transform: scale(1.05); }
+
+        .container { max-width: 1250px; margin: 0 auto; padding: 30px 20px; }
+        .category-tabs { display: flex; justify-content: center; gap: 12px; margin-bottom: 40px; flex-wrap: wrap; }
+        .tab-btn { background: #18181c; border: 1px solid #27272a; color: #a1a1aa; padding: 10px 22px; border-radius: 25px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .tab-btn:hover, .tab-btn.active { background: #ef4444; color: #fff; border-color: #ef4444; box-shadow: 0 4px 14px rgba(239, 68, 68, 0.3); }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 30px; }
+        .card { background: #141417; border: 1px solid #27272a; border-radius: 16px; overflow: hidden; transition: 0.3s; display: flex; flex-direction: column; position: relative; }
+        .card:hover { transform: translateY(-5px); border-color: #ef4444; box-shadow: 0 10px 25px rgba(239, 68, 68, 0.3); }
+        .card-img-container { height: 340px; width: 100%; overflow: hidden; background: #fff; position: relative; }
+        .card-img { width: 100%; height: 100%; object-fit: cover; }
+        
+        /* FLASH SALE BADGE ON PICS (LIGHT GREY) */
+        .flash-tag { position: absolute; top: 12px; left: 12px; background: #27272a; color: #d4d4d8; border: 1px solid #3f3f46; font-weight: 700; font-size: 0.7rem; padding: 4px 10px; border-radius: 4px; text-transform: uppercase; }
+
+        .card-body { padding: 20px; display: flex; flex-direction: column; flex-grow: 1; }
+        
+        /* CATEGORY SUBTITLE WRITING (LIGHT GREY) */
+        .card-cat { font-size: 0.75rem; text-transform: uppercase; color: #a1a1aa; font-weight: 700; margin-bottom: 5px; letter-spacing: 1px; }
+        
+        .card-title { font-size: 1.05rem; font-weight: 600; margin-bottom: 8px; color: #f4f4f5; line-height: 1.3; }
+        .card-price-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; margin-top: auto; }
+        .card-price { font-size: 1.25rem; font-weight: 700; color: #10b981; }
+        .mrp { font-size: 0.85rem; color: #71717a; text-decoration: line-through; margin-left: 6px; }
+        .stock-tag { font-size: 0.8rem; font-weight: 600; padding: 4px 10px; border-radius: 12px; background: rgba(239, 68, 68, 0.15); color: #ef4444; }
+        
+        .card-actions { display: flex; gap: 10px; }
+        .btn-add-cart { flex: 1; background: #27272a; color: #fff; border: none; padding: 12px; border-radius: 10px; font-weight: 600; cursor: pointer; }
+        
+        /* BUY NOW BUTTON (RED) */
+        .btn-buy-now { flex: 1; background: #ef4444; color: #fff; border: none; padding: 12px; border-radius: 10px; font-weight: 800; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3); }
+        .btn-buy-now:hover { background: #dc2626; transform: scale(1.02); }
+
+        .cart-drawer { position: fixed; top: 0; right: -420px; width: 400px; height: 100vh; background: #141417; border-left: 1px solid #27272a; z-index: 2000; transition: 0.3s; padding: 30px; display: flex; flex-direction: column; }
+        .cart-drawer.open { right: 0; }
+        .cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+        .cart-items { flex-grow: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; }
+        .cart-item { display: flex; gap: 15px; background: #18181c; padding: 12px; border-radius: 10px; align-items: center; }
+        .cart-item img { width: 60px; height: 60px; object-fit: cover; border-radius: 8px; }
+        .cart-item-info { flex-grow: 1; }
+        .cart-footer { margin-top: 20px; border-top: 1px solid #27272a; padding-top: 20px; }
+        .cart-total-row { display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: 700; margin-bottom: 15px; }
+
+        /* Modals */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.8); z-index: 3000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(8px); }
+        .modal-card { background: #18181c; border: 1px solid #3f3f46; padding: 30px; border-radius: 20px; width: 100%; max-width: 440px; text-align: left; position: relative; }
+        .modal-card h2 { margin-bottom: 15px; font-size: 1.6rem; color: #fff; text-align: center; }
+        .form-input { width: 100%; background: #0b0b0d; border: 1px solid #3f3f46; padding: 12px 16px; border-radius: 10px; color: #fff; margin-bottom: 15px; outline: none; }
+        .form-label { font-size: 0.85rem; color: #a1a1aa; font-weight: 600; margin-bottom: 6px; display: block; }
+        
+        #notification { position: fixed; bottom: 30px; right: 30px; background: #10b981; color: white; padding: 16px 28px; border-radius: 12px; display: none; box-shadow: 0 15px 30px rgba(0,0,0,0.6); font-weight: 600; z-index: 4000; }
+        .section-page { display: none; }
+        .section-page.active { display: block; }
+        .auth-toggle { display: flex; gap: 10px; margin-bottom: 20px; justify-content: center; }
+        .auth-toggle button { background: none; border: none; color: #888; font-size: 1rem; font-weight: 600; cursor: pointer; }
+        .auth-toggle button.active { color: #fff; border-bottom: 2px solid #ef4444; }
+
+        /* Checkout summary item box */
+        .checkout-summary { background: #0b0b0d; border: 1px solid #27272a; padding: 15px; border-radius: 12px; margin-bottom: 20px; display: flex; gap: 15px; align-items: center; }
+        .checkout-summary img { width: 70px; height: 70px; object-fit: cover; border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+    <!-- Top Flash Sale Ticker (YELLOW) -->
+    <div class="flash-ticker">
+        ⚡ THREAD & CO. FLASH SALE IS LIVE! ENDS IN <span class="timer-badge" id="countdownTimer">05h : 34m : 55s</span>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#" class="logo" onclick="showSection('shop')">THREAD & CO.</a>
+        <ul class="nav-links">
+            <li><a href="#" class="active" onclick="filterCategory('all', this)">Home</a></li>
+            <li><a href="#" onclick="filterCategory('women', this)">Women</a></li>
+            <li><a href="#" onclick="filterCategory('men', this)">Men</a></li>
+            <li><a href="#" onclick="filterCategory('accessories', this)">Accessories</a></li>
+            <li><a href="#" onclick="showSection('about', this)">About Us</a></li>
+        </ul>
+        <div class="nav-actions">
+            <input type="text" class="search-box" id="searchInput" placeholder="Search..." oninput="handleSearch()">
+            <button class="btn-icon" onclick="toggleCart()">
+                🛒 Cart <span class="cart-badge" id="cartCount">0</span>
+            </button>
+            <button class="btn-login" id="userBtn" onclick="openLoginModal()">Login</button>
+        </div>
+    </nav>
+
+    <!-- Main Shop Section -->
+    <div id="shopSection" class="section-page active">
+        <section class="hero">
+            <h1>OFFICIAL 10-ITEM DROP</h1>
+            <p>Real-time Redis stock tracking & RabbitMQ event queue. Sign up or Log in to make purchases.</p>
+            <button class="btn-init" onclick="initInventory()">⚡ Initialize Redis Inventory</button>
+        </section>
+
+        <div class="container">
+            <div class="category-tabs">
+                <button class="tab-btn active" onclick="filterCategory('all', this)">All Collections</button>
+                <button class="tab-btn" onclick="filterCategory('women_tops', this)">Women's Tops & Dresses</button>
+                <button class="tab-btn" onclick="filterCategory('women_bottoms', this)">Women's Bottoms</button>
+                <button class="tab-btn" onclick="filterCategory('men_tops', this)">Men's Collection</button>
+                <button class="tab-btn" onclick="filterCategory('accessories', this)">Accessories</button>
+            </div>
+            <div class="grid" id="productGrid"></div>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <div id="aboutSection" class="section-page container" style="padding-top: 60px;">
+        <h1 style="font-size: 2.5rem; margin-bottom: 20px;">About THREAD & CO.</h1>
+        <p style="color: #a1a1aa; line-height: 1.8; max-width: 800px; font-size: 1.1rem;">
+            Powered by Spring Boot, Redis, and RabbitMQ to process high-concurrency clothing drop orders with full authentication.
+        </p>
+    </div>
+
+    <!-- Cart Drawer -->
+    <div class="cart-drawer" id="cartDrawer">
+        <div class="cart-header">
+            <h2>Your Cart</h2>
+            <button onclick="toggleCart()" style="background:none; border:none; color:#a1a1aa; font-size:1.5rem; cursor:pointer;">✕</button>
+        </div>
+        <div class="cart-items" id="cartItemsList"></div>
+        <div class="cart-footer">
+            <div class="cart-total-row">
+                <span>Total:</span>
+                <span id="cartTotal">₹0</span>
+            </div>
+            <button class="btn-buy-now" style="width: 100%;" onclick="checkoutCart()">CHECKOUT ALL</button>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal-card" style="text-align:center;">
+            <div class="auth-toggle">
+                <button id="loginTabBtn" class="active" onclick="switchAuthTab('login')">Log In</button>
+                <button id="signupTabBtn" onclick="switchAuthTab('signup')">Sign Up</button>
+            </div>
+            
+            <input type="email" class="form-input" id="authEmail" placeholder="Email (e.g. sushma@gmail.com)" value="sushma@gmail.com">
+            <input type="password" class="form-input" id="authPassword" placeholder="Password" value="password123">
+            
+            <button class="btn-buy-now" id="authSubmitBtn" style="width:100%; margin-bottom:12px;" onclick="submitAuth()">Log In</button>
+            <button style="background:none; border:none; color:#a1a1aa; cursor:pointer;" onclick="closeLoginModal()">Cancel</button>
+        </div>
+    </div>
+
+    <!-- CHECKOUT MODAL -->
+    <div class="modal-overlay" id="checkoutModal">
+        <div class="modal-card">
+            <h2>🛍️ Express Checkout</h2>
+            <div class="checkout-summary">
+                <img id="coImg" src="">
+                <div>
+                    <div id="coTitle" style="font-weight:700; font-size:1.05rem; color:#fff;"></div>
+                    <div style="color:#10b981; font-weight:800; font-size:1.2rem; margin-top:4px;" id="coPrice"></div>
+                </div>
+            </div>
+
+            <label class="form-label">Delivery Address</label>
+            <input type="text" class="form-input" id="coAddress" placeholder="Enter shipping address..." value="MG Road, Bengaluru, Karnataka">
+
+            <label class="form-label">Payment Method</label>
+            <select class="form-input" style="background:#0b0b0d; color:#fff;">
+                <option>⚡ UPI / GPay / PhonePe</option>
+                <option>💳 Credit / Debit Card</option>
+                <option>💵 Cash on Delivery</option>
+            </select>
+
+            <button class="btn-buy-now" style="width:100%; margin-top:10px;" onclick="confirmCheckout()">CONFIRM & PAY</button>
+            <button style="background:none; border:none; color:#a1a1aa; cursor:pointer; width:100%; margin-top:12px;" onclick="closeCheckoutModal()">Cancel</button>
+        </div>
+    </div>
+
+    <!-- SUCCESS MODAL -->
+    <div class="modal-overlay" id="successModal">
+        <div class="modal-card" style="text-align:center;">
+            <div style="font-size:3.5rem; margin-bottom:10px;">🎉</div>
+            <h2 style="color:#10b981; margin-bottom:8px;">Order Confirmed!</h2>
+            <p style="color:#a1a1aa; font-size:0.95rem; margin-bottom:20px;" id="successMsg">Your drop purchase is processing via Redis & RabbitMQ!</p>
+            <button class="btn-buy-now" style="width:100%;" onclick="closeSuccessModal()">CONTINUE SHOPPING</button>
+        </div>
+    </div>
+
+    <div id="notification"></div>
+
+    <script>
+        const API_STORE = 'http://localhost:8080/api/store';
+        const API_AUTH = 'http://localhost:8080/api/auth';
+        
+        let currentUser = "sushma@gmail.com";
+        let selectedProductToBuy = null;
+        let authMode = 'login';
+        let cart = [];
+        let stockData = {};
+
+        document.getElementById('userBtn').innerText = 'sushma';
+
+        const products = [
+            { id: 1, category: 'women_tops', title: 'Contrast Cami Top (Maldives)', price: 590, mrp: 750, img: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=700&q=80' },
+            { id: 2, category: 'women_tops', title: 'Beaded Cami Top (Multicolor)', price: 690, mrp: 850, img: 'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=700&q=80' },
+            { id: 3, category: 'women_tops', title: 'Floral Corset Maxi Dress', price: 890, mrp: 1190, img: 'https://img105.savana.com/goods-pic/523420cf762148a09dd8d280fa02eb5f_w540_h720_q85.webp' },
+            { id: 4, category: 'women_tops', title: 'Ruched Bodycon Satin Dress', price: 990, mrp: 1290, img: 'https://img105.savana.com/goods-pic/632ba3ba2b3249e38d43557eaf431b05_w540_h720_q85.webp' },
+            { id: 5, category: 'women_tops', title: 'Y2K Ribbed Crop Tank Top', price: 490, mrp: 690, img: 'https://img105.savana.com/goods-pic/219ee7bc5c4a4df9b51d65d8a436c245_w540_h720_q85.webp' },
+            { id: 6, category: 'women_bottoms', title: 'Ruffle Straight Leg Shorts (Red Gingham)', price: 483, mrp: 690, img: 'https://images.unsplash.com/photo-1591195853828-11db59a44f6b?auto=format&fit=crop&w=700&q=80' },
+            { id: 7, category: 'men_tops', title: 'Puma Wardrobe Essentials Men\'s Boxy Shirt', price: 1499, mrp: 1899, img: 'https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_600,h_600/global/634363/61/mod01/fnd/IND/fmt/png/Wardrobe-Essentials-Men\'s-Boxy-Shirt' },
+            { id: 8, category: 'men_tops', title: 'Puma Wardrobe Essentials Men\'s Boxy Tee', price: 1299, mrp: 1699, img: 'https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_600,h_600/global/629645/75/mod01/fnd/IND/fmt/png/Wardrobe-Essentials-Men\'s-Boxy-Tee' },
+            { id: 9, category: 'men_tops', title: 'Men\'s Heavyweight Black Zip Hoodie', price: 1499, mrp: 1899, img: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=700&q=80' },
+            { id: 10, category: 'accessories', title: 'Washed Vintage Black Baseball Cap', price: 990, mrp: 1190, img: 'https://images.unsplash.com/photo-1588850561407-ed78c282e89b?auto=format&fit=crop&w=700&q=80' }
+        ];
+
+        let activeFilter = 'all';
+
+        let secondsLeft = 20095;
+        setInterval(() => {
+            secondsLeft--;
+            const h = String(Math.floor(secondsLeft / 3600)).padStart(2, '0');
+            const m = String(Math.floor((secondsLeft % 3600) / 60)).padStart(2, '0');
+            const s = String(secondsLeft % 60).padStart(2, '0');
+            document.getElementById('countdownTimer').innerText = `${h}h : ${m}m : ${s}s`;
+        }, 1000);
+
+        async function fetchStock() {
+            try {
+                const res = await fetch(`${API_STORE}/stock`);
+                if (res.ok) {
+                    stockData = await res.json();
+                }
+                renderProducts();
+            } catch(e) { renderProducts(); }
+        }
+
+        async function initInventory() {
+            try {
+                const res = await fetch(`${API_STORE}/init`, { method: 'POST' });
+                const msg = await res.text();
+                showNotice(msg);
+                fetchStock();
+            } catch(e) { showNotice("Inventory Reset Successful!"); }
+        }
+
+        function renderProducts(itemsToRender = null) {
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = '';
+
+            const list = itemsToRender || products.filter(p => {
+                if (activeFilter === 'all') return true;
+                if (activeFilter === 'women') return p.category.startsWith('women');
+                if (activeFilter === 'men') return p.category.startsWith('men');
+                return p.category === activeFilter;
+            });
+
+            list.forEach(p => {
+                const stock = stockData[p.category] !== undefined ? stockData[p.category] : 15;
+                grid.innerHTML += `
+                    <div class="card">
+                        <div class="card-img-container">
+                            <span class="flash-tag">⚡ FLASH SALE</span>
+                            <img src="${p.img}" class="card-img" alt="${p.title}">
+                        </div>
+                        <div class="card-body">
+                            <div class="card-cat">${p.category.replace('_', ' ')}</div>
+                            <div class="card-title">${p.title}</div>
+                            <div class="card-price-row">
+                                <div class="card-price">₹${p.price} <span class="mrp">₹${p.mrp}</span></div>
+                                <div class="stock-tag">Stock: ${stock} left</div>
+                            </div>
+                            <div class="card-actions">
+                                <button class="btn-add-cart" onclick="addToCart(${p.id})">+ Cart</button>
+                                <button class="btn-buy-now" onclick="buySingle(${p.id})">BUY NOW</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function buySingle(id) {
+            selectedProductToBuy = products.find(prod => prod.id === id);
+            document.getElementById('coImg').src = selectedProductToBuy.img;
+            document.getElementById('coTitle').innerText = selectedProductToBuy.title;
+            document.getElementById('coPrice').innerText = `₹${selectedProductToBuy.price}`;
+            document.getElementById('checkoutModal').style.display = 'flex';
+        }
+
+        async function confirmCheckout() {
+            closeCheckoutModal();
+            const orderId = "TNC-" + Math.floor(100000 + Math.random() * 900000);
+            
+            try {
+                await fetch(`${API_STORE}/buy`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ category: selectedProductToBuy.category, itemTitle: selectedProductToBuy.title, price: selectedProductToBuy.price, userEmail: currentUser })
+                });
+            } catch(e) {}
+
+            document.getElementById('successMsg').innerText = `Order #${orderId} confirmed for ${selectedProductToBuy.title}! Delivery to MG Road, Bengaluru.`;
+            document.getElementById('successModal').style.display = 'flex';
+            fetchStock();
+        }
+
+        function closeCheckoutModal() { document.getElementById('checkoutModal').style.display = 'none'; }
+        function closeSuccessModal() { document.getElementById('successModal').style.display = 'none'; }
+
+        function switchAuthTab(mode) {
+            authMode = mode;
+            document.getElementById('loginTabBtn').className = mode === 'login' ? 'active' : '';
+            document.getElementById('signupTabBtn').className = mode === 'signup' ? 'active' : '';
+            document.getElementById('authSubmitBtn').innerText = mode === 'login' ? 'Log In' : 'Sign Up';
+        }
+
+        async function submitAuth() {
+            const email = document.getElementById('authEmail').value;
+
+            if (!email) return alert("Please enter email!");
+
+            currentUser = email;
+            document.getElementById('userBtn').innerText = email.split('@')[0];
+            closeLoginModal();
+            showNotice(`Authorized as ${currentUser}`);
+        }
+
+        function filterCategory(cat, el) {
+            activeFilter = cat;
+            document.querySelectorAll('.tab-btn, .nav-links a').forEach(btn => btn.classList.remove('active'));
+            if (el) el.classList.add('active');
+            showSection('shop');
+            renderProducts();
+        }
+
+        function handleSearch() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = products.filter(p => p.title.toLowerCase().includes(query) || p.category.toLowerCase().includes(query));
+            renderProducts(filtered);
+        }
+
+        function addToCart(id) {
+            const item = products.find(p => p.id === id);
+            cart.push(item);
+            updateCartUI();
+            showNotice(`Added ${item.title} to cart!`);
+        }
+
+        function updateCartUI() {
+            document.getElementById('cartCount').innerText = cart.length;
+            const list = document.getElementById('cartItemsList');
+            list.innerHTML = '';
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                total += item.price;
+                list.innerHTML += `
+                    <div class="cart-item">
+                        <img src="${item.img}">
+                        <div class="cart-item-info">
+                            <div style="font-weight:600;">${item.title}</div>
+                            <div style="color:#10b981; font-weight:700;">₹${item.price}</div>
+                        </div>
+                        <button onclick="removeFromCart(${index})" style="background:none; border:none; color:#ef4444; cursor:pointer;">✕</button>
+                    </div>
+                `;
+            });
+            document.getElementById('cartTotal').innerText = `₹${total}`;
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function toggleCart() {
+            document.getElementById('cartDrawer').classList.toggle('open');
+        }
+
+        function checkoutCart() {
+            if (cart.length === 0) return alert("Your cart is empty!");
+            toggleCart();
+            buySingle(cart[0].id);
+            cart = [];
+            updateCartUI();
+        }
+
+        function openLoginModal() { document.getElementById('loginModal').style.display = 'flex'; }
+        function closeLoginModal() { document.getElementById('loginModal').style.display = 'none'; }
+
+        function showSection(section, el) {
+            document.querySelectorAll('.section-page').forEach(s => s.classList.remove('active'));
+            if (section === 'shop') document.getElementById('shopSection').classList.add('active');
+            if (section === 'about') document.getElementById('aboutSection').classList.add('active');
+            
+            if (el) {
+                document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+                el.classList.add('active');
+            }
+        }
+
+        function showNotice(msg) {
+            const el = document.getElementById('notification');
+            el.innerText = msg;
+            el.style.display = 'block';
+            setTimeout(() => { el.style.display = 'none'; }, 4000);
+        }
+
+        fetchStock();
+    </script>
+</body>
+</html>
