@@ -9,11 +9,9 @@
         * { box-sizing: border-box; font-family: 'Outfit', sans-serif; margin: 0; padding: 0; }
         body { background-color: #0b0b0d; color: #f4f4f5; min-height: 100vh; }
         
-        /* Top Flash Ticker (YELLOW) */
         .flash-ticker { background: #eab308; color: #000; font-weight: 800; text-align: center; padding: 10px; font-size: 0.95rem; letter-spacing: 1px; display: flex; justify-content: center; align-items: center; gap: 15px; }
         .timer-badge { background: #000; color: #eab308; padding: 4px 10px; border-radius: 6px; font-family: monospace; font-size: 1rem; }
 
-        /* Navigation */
         nav { background: rgba(18, 18, 22, 0.95); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid #27272a; padding: 15px 40px; display: flex; align-items: center; justify-content: space-between; }
         .logo { font-size: 1.8rem; font-weight: 800; letter-spacing: 3px; color: #fff; text-decoration: none; }
         .nav-links { display: flex; gap: 25px; list-style: none; }
@@ -27,7 +25,6 @@
         .cart-badge { background: #ef4444; color: #fff; border-radius: 50%; padding: 2px 7px; font-size: 0.75rem; font-weight: 700; }
         .btn-login { background: #fff; color: #000; border: none; padding: 8px 20px; border-radius: 20px; font-weight: 700; cursor: pointer; }
 
-        /* Hero */
         .hero { text-align: center; padding: 50px 20px 30px; background: radial-gradient(circle at top, #450a0a 0%, #0b0b0d 75%); }
         .hero h1 { font-size: 3rem; font-weight: 800; letter-spacing: 2px; margin-bottom: 10px; color: #fca5a5; }
         .hero p { color: #a1a1aa; max-width: 600px; margin: 0 auto 20px; font-size: 1.05rem; }
@@ -44,15 +41,10 @@
         .card:hover { transform: translateY(-5px); border-color: #ef4444; box-shadow: 0 10px 25px rgba(239, 68, 68, 0.3); }
         .card-img-container { height: 340px; width: 100%; overflow: hidden; background: #fff; position: relative; }
         .card-img { width: 100%; height: 100%; object-fit: cover; }
-        
-        /* FLASH SALE BADGE ON PICS (LIGHT GREY) */
         .flash-tag { position: absolute; top: 12px; left: 12px; background: #27272a; color: #d4d4d8; border: 1px solid #3f3f46; font-weight: 700; font-size: 0.7rem; padding: 4px 10px; border-radius: 4px; text-transform: uppercase; }
 
         .card-body { padding: 20px; display: flex; flex-direction: column; flex-grow: 1; }
-        
-        /* CATEGORY SUBTITLE WRITING (LIGHT GREY) */
         .card-cat { font-size: 0.75rem; text-transform: uppercase; color: #a1a1aa; font-weight: 700; margin-bottom: 5px; letter-spacing: 1px; }
-        
         .card-title { font-size: 1.05rem; font-weight: 600; margin-bottom: 8px; color: #f4f4f5; line-height: 1.3; }
         .card-price-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; margin-top: auto; }
         .card-price { font-size: 1.25rem; font-weight: 700; color: #10b981; }
@@ -61,8 +53,6 @@
         
         .card-actions { display: flex; gap: 10px; }
         .btn-add-cart { flex: 1; background: #27272a; color: #fff; border: none; padding: 12px; border-radius: 10px; font-weight: 600; cursor: pointer; }
-        
-        /* BUY NOW BUTTON (RED) */
         .btn-buy-now { flex: 1; background: #ef4444; color: #fff; border: none; padding: 12px; border-radius: 10px; font-weight: 800; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3); }
         .btn-buy-now:hover { background: #dc2626; transform: scale(1.02); }
 
@@ -76,7 +66,6 @@
         .cart-footer { margin-top: 20px; border-top: 1px solid #27272a; padding-top: 20px; }
         .cart-total-row { display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: 700; margin-bottom: 15px; }
 
-        /* Modals */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.8); z-index: 3000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(8px); }
         .modal-card { background: #18181c; border: 1px solid #3f3f46; padding: 30px; border-radius: 20px; width: 100%; max-width: 440px; text-align: left; position: relative; }
         .modal-card h2 { margin-bottom: 15px; font-size: 1.6rem; color: #fff; text-align: center; }
@@ -90,19 +79,16 @@
         .auth-toggle button { background: none; border: none; color: #888; font-size: 1rem; font-weight: 600; cursor: pointer; }
         .auth-toggle button.active { color: #fff; border-bottom: 2px solid #ef4444; }
 
-        /* Checkout summary item box */
         .checkout-summary { background: #0b0b0d; border: 1px solid #27272a; padding: 15px; border-radius: 12px; margin-bottom: 20px; display: flex; gap: 15px; align-items: center; }
         .checkout-summary img { width: 70px; height: 70px; object-fit: cover; border-radius: 10px; }
     </style>
 </head>
 <body>
 
-    <!-- Top Flash Sale Ticker (YELLOW) -->
     <div class="flash-ticker">
         ⚡ THREAD & CO. FLASH SALE IS LIVE! ENDS IN <span class="timer-badge" id="countdownTimer">05h : 34m : 55s</span>
     </div>
 
-    <!-- Navigation -->
     <nav>
         <a href="#" class="logo" onclick="showSection('shop')">THREAD & CO.</a>
         <ul class="nav-links">
@@ -121,7 +107,6 @@
         </div>
     </nav>
 
-    <!-- Main Shop Section -->
     <div id="shopSection" class="section-page active">
         <section class="hero">
             <h1>OFFICIAL 10-ITEM DROP</h1>
@@ -141,7 +126,6 @@
         </div>
     </div>
 
-    <!-- About Section -->
     <div id="aboutSection" class="section-page container" style="padding-top: 60px;">
         <h1 style="font-size: 2.5rem; margin-bottom: 20px;">About THREAD & CO.</h1>
         <p style="color: #a1a1aa; line-height: 1.8; max-width: 800px; font-size: 1.1rem;">
@@ -149,7 +133,6 @@
         </p>
     </div>
 
-    <!-- Cart Drawer -->
     <div class="cart-drawer" id="cartDrawer">
         <div class="cart-header">
             <h2>Your Cart</h2>
@@ -165,7 +148,6 @@
         </div>
     </div>
 
-    <!-- Login Modal -->
     <div class="modal-overlay" id="loginModal">
         <div class="modal-card" style="text-align:center;">
             <div class="auth-toggle">
@@ -181,7 +163,6 @@
         </div>
     </div>
 
-    <!-- CHECKOUT MODAL -->
     <div class="modal-overlay" id="checkoutModal">
         <div class="modal-card">
             <h2>🛍️ Express Checkout</h2>
@@ -208,7 +189,6 @@
         </div>
     </div>
 
-    <!-- SUCCESS MODAL -->
     <div class="modal-overlay" id="successModal">
         <div class="modal-card" style="text-align:center;">
             <div style="font-size:3.5rem; margin-bottom:10px;">🎉</div>
@@ -228,7 +208,12 @@
         let selectedProductToBuy = null;
         let authMode = 'login';
         let cart = [];
-        let stockData = {};
+        let stockData = {
+            'women_tops': 20,
+            'women_bottoms': 15,
+            'men_tops': 25,
+            'accessories': 30
+        };
 
         document.getElementById('userBtn').innerText = 'sushma';
 
@@ -260,10 +245,15 @@
             try {
                 const res = await fetch(`${API_STORE}/stock`);
                 if (res.ok) {
-                    stockData = await res.json();
+                    const data = await res.json();
+                    Object.keys(data).forEach(k => {
+                        if (data[k] !== null && data[k] !== undefined) {
+                            stockData[k] = parseInt(data[k]);
+                        }
+                    });
                 }
-                renderProducts();
-            } catch(e) { renderProducts(); }
+            } catch(e) {}
+            renderProducts();
         }
 
         async function initInventory() {
@@ -272,7 +262,11 @@
                 const msg = await res.text();
                 showNotice(msg);
                 fetchStock();
-            } catch(e) { showNotice("Inventory Reset Successful!"); }
+            } catch(e) { 
+                stockData = { 'women_tops': 20, 'women_bottoms': 15, 'men_tops': 25, 'accessories': 30 };
+                renderProducts();
+                showNotice("Inventory Reset Successful!"); 
+            }
         }
 
         function renderProducts(itemsToRender = null) {
@@ -322,18 +316,31 @@
         async function confirmCheckout() {
             closeCheckoutModal();
             const orderId = "TNC-" + Math.floor(100000 + Math.random() * 900000);
+            const cat = selectedProductToBuy.category;
             
+            // Instantly decrement stock in UI for instant responsiveness!
+            if (stockData[cat] !== undefined && stockData[cat] > 0) {
+                stockData[cat]--;
+            }
+            renderProducts();
+
             try {
-                await fetch(`${API_STORE}/buy`, {
+                const res = await fetch(`${API_STORE}/buy`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ category: selectedProductToBuy.category, itemTitle: selectedProductToBuy.title, price: selectedProductToBuy.price, userEmail: currentUser })
+                    body: JSON.stringify({ category: cat, itemTitle: selectedProductToBuy.title, price: selectedProductToBuy.price, userEmail: currentUser })
                 });
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.remainingStock !== undefined) {
+                        stockData[cat] = parseInt(data.remainingStock);
+                        renderProducts();
+                    }
+                }
             } catch(e) {}
 
             document.getElementById('successMsg').innerText = `Order #${orderId} confirmed for ${selectedProductToBuy.title}! Delivery to MG Road, Bengaluru.`;
             document.getElementById('successModal').style.display = 'flex';
-            fetchStock();
         }
 
         function closeCheckoutModal() { document.getElementById('checkoutModal').style.display = 'none'; }
